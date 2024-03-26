@@ -1,0 +1,28 @@
+(rule (target ControlPanel.ml) (deps ../ControlPanel.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../ControlPanel} --impl ControlPanel.eliom)))))
+(rule (target Creet.ml) (deps ../Creet.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../Creet} --impl Creet.eliom)))))
+(rule (target Game.ml) (deps ../Game.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../Game} --impl Game.eliom)))))
+(rule (target Gamearea.ml) (deps ../Gamearea.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../Gamearea} --impl Gamearea.eliom)))))
+(rule (target Makefile.ml) (deps ../Makefile.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../Makefile} --impl Makefile.eliom)))))
+(rule (target Types.ml) (deps ../Types.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../Types} --impl Types.eliom)))))
+(rule (target h42n42.ml) (deps ../h42n42.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../h42n42} --impl h42n42.eliom)))))
