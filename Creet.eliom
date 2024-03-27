@@ -170,7 +170,7 @@ let _update_mutation_properties creet root_state =
 
 (* Updates the speed of the creet based on global acceleration and sick debuffs*)
 let _update_speed creet root_state = 
-  let global_accel = (float_of_int root_state.iter) *. 0.0005 +. 1. in
+  let global_accel = (float_of_int root_state.iter) *. 0.0002 +. 1. in
   if creet.is_grabbed = false then
     begin
       creet.step_top <- creet.step_top *. global_accel; 
@@ -221,8 +221,6 @@ let _create_creet creet_id =
     max_top = 666. -. init_size;
     step_top = _get_non_zero_random ();
     step_left = _get_non_zero_random ();
-    (* step_top = float_of_int ((Random.int 20) - 9) /. 10.;
-    step_left = float_of_int ((Random.int 20) - 9) /. 10.; *)
     scale = 1.;
 
     elt = elt;

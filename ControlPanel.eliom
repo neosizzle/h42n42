@@ -44,6 +44,7 @@ let extract_input_slider ev =
           Some (Js.to_string (input##.value))
       | None -> None
 
+(* Modifies the disabled field for a slider input *)
 let set_disabled_slider dom_node value = 
   let input_element = Js.Opt.to_option (Js.Opt.bind (Dom.CoerceTo.element dom_node) (fun elem ->
     if Js.to_string elem##.tagName = "INPUT" then
@@ -56,6 +57,7 @@ let set_disabled_slider dom_node value =
         input##.disabled := value;
     | _ -> print_endline "input expected @ set_disabled_slider"
 
+(* Modifies the disabled field for a button input *)
 let set_disabled_button dom_node value = 
   let input_element = Js.Opt.to_option (Js.Opt.bind (Dom.CoerceTo.element dom_node) (fun elem ->
     if Js.to_string elem##.tagName = "BUTTON" then
@@ -68,6 +70,7 @@ let set_disabled_button dom_node value =
         input##.disabled := value;
     | _ -> print_endline "button expected @ set_disabled_button"
 
+(* Main loop for control panel*)
 let rec loop (root_state: Types.game) = 
   let%lwt () = Lwt_js.sleep 0.001 in
     if root_state.is_start then begin
@@ -117,9 +120,9 @@ let rec loop (root_state: Types.game) =
     loop root_state
 
 
+(* Initial shell function *)
 let init (root_state: Types.game) = 
 
-  (* Declare initial local states *)
   let local_state = {
     infect_percent_int = 2;
     berserk_percent_int = 10;
@@ -128,7 +131,6 @@ let init (root_state: Types.game) =
     endless_mode = false;
   } in
 
-  (* Start button *)
   let start_btn = button ~a:[
     a_id "start_btn"
     ; a_onclick (fun _ ->

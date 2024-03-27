@@ -19,4 +19,5 @@ gamearea
 
 creet render and movement
 
+collision detection
 
