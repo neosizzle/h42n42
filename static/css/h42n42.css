@@ -55,6 +55,38 @@
     left: 1000px;
 }
 
+.main__tutorial {
+    position: absolute;
+    top: 200px;
+    left: 1000px;
+    width: 500px;
+}
+
+.green {
+    color: green;
+    font-weight: bold;
+}
+
+.yellow {
+    color: darkkhaki;
+    font-weight: bold;
+}
+
+.purple {
+    color: purple;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+    font-weight: bold;
+}
+
+.bonus {
+    font-size: smaller;
+    color: silver;
+}
+
 .main {
     position: relative;
 }

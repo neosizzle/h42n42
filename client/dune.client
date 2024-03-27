@@ -18,6 +18,14 @@
   (action
     (with-stdout-to %{target}
       (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../Makefile} --impl Makefile.eliom)))))
+(rule (target Quadtree.ml) (deps ../Quadtree.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../Quadtree} --impl Quadtree.eliom)))))
+(rule (target Tutorial.ml) (deps ../Tutorial.eliom)
+  (action
+    (with-stdout-to %{target}
+      (chdir .. (run tools/eliom_ppx_client.exe --as-pp -server-cmo %{cmo:../Tutorial} --impl Tutorial.eliom)))))
 (rule (target Types.ml) (deps ../Types.eliom)
   (action
     (with-stdout-to %{target}

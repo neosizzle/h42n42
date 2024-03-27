@@ -2,7 +2,6 @@
 open Eliom_content.Html.D
 
 let elt = div ~a:[a_class ["main"]] []
-(* let creets_counter_div = div ~a:[ a_class [ "creets-counter" ] ] [] *)
 (**)]
 
 [%%client
@@ -18,6 +17,7 @@ type game_state = {
 
 let main ()= 
   let init_state = {
+    quadtree_root = Quadtree.generate_quadtree_root 2 666.; (* HARDCODED SIZE *)
     is_start = false;
     is_running = false;
     endless_mode = false;
@@ -34,9 +34,9 @@ let main ()=
     gamearea_width = 0;
     gamearea_height = 0;
     } in
-  Html.Manip.appendChildren ~%elt [Gamearea.elt; ControlPanel.elt] ;
+  Html.Manip.appendChildren ~%elt [Gamearea.elt; ControlPanel.elt; Tutorial.elt] ;
   Lwt.async (fun () -> Gamearea.init init_state);
-  Lwt.async (fun () -> ControlPanel.init init_state)
+  Lwt.async (fun () -> ControlPanel.init init_state);
 ]
 
 

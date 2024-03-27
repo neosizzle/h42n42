@@ -170,7 +170,7 @@ let _update_mutation_properties creet root_state =
 
 (* Updates the speed of the creet based on global acceleration and sick debuffs*)
 let _update_speed creet root_state = 
-  let global_accel = (float_of_int root_state.iter) *. 0.0001 +. 1. in
+  let global_accel = (float_of_int root_state.iter) *. 0.0005 +. 1. in
   if creet.is_grabbed = false then
     begin
       creet.step_top <- creet.step_top *. global_accel; 
@@ -189,7 +189,9 @@ let _detect_river creet root_state =
 
 (* Detect if current creet is colliding with any creet which is sick, for each non-healthy creet, roll for infection*)
 let _detect_infection creet root_state = 
-  let non_healthy_contact_creets = List.filter (fun x -> _is_self creet x = false && x.is_grabbed = false && _is_creet_colliding creet x && x.state != Healthy) root_state.creets in
+  let quadtree_coords = Quadtree.calculate_quadrant creet [] root_state.quadtree_root in
+  let creets_in_quadrant = List.filter (fun creet -> Quadtree.compare_trace creet [] root_state.quadtree_root quadtree_coords.quadrant_trace) root_state.creets in
+  let non_healthy_contact_creets = List.filter (fun x -> _is_self creet x = false && x.is_grabbed = false && _is_creet_colliding creet x && x.state != Healthy) creets_in_quadrant in
   List.iter (fun _ -> _roll_infection creet root_state) non_healthy_contact_creets
 
 let _kill_berserk creet root_state = 
@@ -198,6 +200,11 @@ let _kill_berserk creet root_state =
       root_state.creets <- List.filter (fun x -> x.id != creet.id) root_state.creets ;
       Html.Manip.removeSelf creet.elt
     end
+
+let rec _get_non_zero_random () =
+  let random_float = float_of_int ((Random.int 20) - 9) /. 10. in
+  if random_float = 0.0 then _get_non_zero_random ()
+  else random_float
 
 let _create_creet creet_id =
   let elt = div ~a:[ a_class [ "creet" ]; a_id ("creet_" ^ (string_of_int creet_id)) ] [] in
@@ -212,8 +219,10 @@ let _create_creet creet_id =
     left = float_of_int(Random.int (666 - 45));
     max_left = 666. -. init_size;
     max_top = 666. -. init_size;
-    step_top = float_of_int ((Random.int 20) - 9) /. 10.;
-    step_left = float_of_int ((Random.int 20) - 9) /. 10.;
+    step_top = _get_non_zero_random ();
+    step_left = _get_non_zero_random ();
+    (* step_top = float_of_int ((Random.int 20) - 9) /. 10.;
+    step_left = float_of_int ((Random.int 20) - 9) /. 10.; *)
     scale = 1.;
 
     elt = elt;

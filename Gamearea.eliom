@@ -34,7 +34,6 @@ let initialize_game (root_state: Types.game) local_elems =
 
 (* Update game state *)
 let update_game (root_state: Types.game) local_elems =
-  (* check timers here .... *)
   root_state.timer_ns <- root_state.timer_ns + 1;
   if root_state.timer_ns >= 300 then
     begin

@@ -2,13 +2,26 @@
 open Eliom_content.Html.D
 open Js_of_ocaml
 
+type static_quadtree = {
+  max_levels: int;
+  top: float;
+  left: float;
+  size: float;
+}
+
+type quadtree_coords = {
+  level: int;
+  quadrant_trace: int list;
+}
+
 type creet_state = Healthy | Mean | Beserk | Sick
 
 type creet = {
+  id: int;
+
   mutable state: creet_state;
   mutable spd_bonus: float;
   mutable is_grabbed: bool;
-  id: int;
   mutable name: string;
   mutable top: float;
   mutable left: float;
@@ -23,6 +36,8 @@ type creet = {
 }
 
 type game = {
+  quadtree_root: static_quadtree;
+  
   mutable is_start: bool;
   mutable is_running: bool;
   mutable endless_mode: bool;
@@ -39,4 +54,5 @@ type game = {
   mutable gamearea_width: int;
   mutable gamearea_height: int;
 }
+
 ]
