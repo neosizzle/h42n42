@@ -38,5 +38,3 @@ let main ()=
   Lwt.async (fun () -> Gamearea.init init_state);
   Lwt.async (fun () -> ControlPanel.init init_state);
 ]
-
-

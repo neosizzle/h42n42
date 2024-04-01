@@ -31,11 +31,7 @@ let _is_self creet_a creet_b = creet_a.id == creet_b.id
 let _is_creet_colliding creet_a creet_b = 
   let a_size = _get_size_px creet_a.scale in 
   let b_size = _get_size_px creet_b.scale in
-  (* print_endline ("Creet_A left : " ^ string_of_float creet_a.left ^ ", Creet_A size: " ^ string_of_float a_size);
-  print_endline ("Creet_B left : " ^ string_of_float creet_b.left ^ ", Creet_B size: " ^ string_of_float b_size);
-  print_endline (string_of_bool ((creet_b.left > creet_a.left) && (creet_b.left <= (creet_a.left +. a_size))));
-  print_endline "============================================";
-  ((creet_b.left > creet_a.left) && (creet_b.left <= (creet_a.left +. a_size))) *)
+
   (((creet_b.left > creet_a.left) && (creet_b.left <= (creet_a.left +. a_size))) || 
   (((creet_b.left +. b_size) >= creet_a.left) && (creet_b.left +. b_size) < (creet_a.left +. a_size)))
   &&
