@@ -128,7 +128,7 @@ To use concurrency in eliom, it provides us with a [LWT (LightWeight Thread) thr
 
 For example, if we have a control panel section of the website and a game area of the website with a common state, we can spawn the threads respectively like so 
 
-```ocaml=
+```ocaml
 let main ()= 
   let init_state = {
     (*initial state...*)
@@ -149,7 +149,7 @@ With the newfound knowledge, I have made 2 seperate sections of the game, one to
 
 Every loop iteration of the game area, I would check if the game has started by the actions in the control panel. If its started, proceed by updating the game state by drawing the creets (Adding / updating the creet doms in the gamearea) and calculate its next position (top and left) then store it in the local state where we store the information for all the creets.
 
-```ocaml=
+```ocaml
 (* Update game state *)
 (* Types.game is a record which stores information of the game, including all the creets in the game *)
 let update_game (root_state: Types.game)  =
@@ -183,7 +183,7 @@ Mouse events for the creets can be implemented using the `Js_of_ocaml_lwt.Lwt_js
 
 They are sequential as well, we only need to register the `mousemove` and `mouseup` handlers once the `mousedown` handler had been tripped, so that we dont have any handler code running when we are just hovering over the creet elements; it can be done like so
 
-```ocaml=
+```ocaml
 (* Handles grabbing of creet *)
 let _handle_mousedown creet _ _ =
   creet.is_grabbed <- true;
@@ -223,7 +223,7 @@ With the appropriate logic on top of the handlers, we can drag the creets now
 
 ## Collision detection with a quadtree
 Since sick creets should be able to infect other creets upon contact, a way to detect of creets collide is needed. The follow is the algorithm to determine if 2 square creets are colliding :
-```ocaml=
+```ocaml
 (* Determine if 2 creets are colliding (overlapping) *)
 let _is_creet_colliding creet_a creet_b = 
   let a_size = _get_size_px creet_a.scale in 
@@ -251,7 +251,7 @@ This is acheiveable by calculating the quadrants of each particle (by comparing 
 
 We can also be more granular by splitting the canvas further into more fine quadrants, we just need to keep track of the quadrant path took by the blue particle to achive a more finer comparison.
 
-```ocaml=
+```ocaml
 (* Find out which quadrant a creet is in, and add it to the trace aka path it took. We will define a maximum level here so we wont go forever. *)
 let rec calculate_quadrant creet trace tree_node =
   if List.length trace = tree_node.max_levels then
